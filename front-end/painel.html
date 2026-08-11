@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel da Empresa - SaaS</title>
+    <!-- Conectamos o mesmo arquivo de estilos para manter o padrão -->
+    <link rel="stylesheet" href="styleIndex.css">
+</head>
+<body class="painel-body">
+
+    <!-- Topo / Cabeçalho do Painel -->
+    <header class="painel-header">
+        <h1 id="mensagem-boas-vindas">Bem-vindo(a)!</h1>
+        <p class="painel-subtitulo">Gerencie os funcionários da sua empresa de forma rápida e segura.</p>
+    </header>
+
+    <main class="painel-grid">
+
+        <!-- 1. BLOCO DE BUSCAR FUNCIONÁRIO -->
+        <section class="painel-card">
+            <h2>Buscar Funcionário</h2>
+            <div class="form-group">
+                <label class="form-label" for="idF">Digite o ID:</label>
+                <input id="idF" class="form-input" type="number">
+            </div>
+            <button id="buscar" class="form-button">Buscar Funcionário</button>
+            
+            <div id="infoF" class="resultado-box">
+                <p id="nome"></p>
+                <p id="salario"></p>
+            </div>
+        </section>
+
+        <!-- 2. BLOCO DE CADASTRAR FUNCIONÁRIO -->
+        <section class="painel-card">
+            <h2>Cadastrar Novo Funcionário</h2>
+            <div class="form-group">
+                <label class="form-label" for="cadastrarNome">Nome do funcionário:</label>
+                <input id="cadastrarNome" class="form-input" type="text">
+                <p id="cvn" class="aviso-texto"></p>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="cadastrarSalario">Salário do funcionário:</label>
+                <input id="cadastrarSalario" class="form-input" type="text">
+                <p id="cvs" class="aviso-texto"></p>
+            </div>
+
+            <button id="cadastrar" class="form-button">Cadastrar</button>
+            <p id="fc" class="aviso-sucesso"></p>
+        </section>
+
+        <!-- 3. BLOCO DE ATUALIZAR FUNCIONÁRIO -->
+        <section class="painel-card">
+            <h2>Atualizar Funcionário</h2>
+            <div class="form-group">
+                <label class="form-label" for="buscarId_input">ID do funcionário a ser atualizado:</label>
+                <input id="buscarId_input" class="form-input" type="text"> 
+                <p id="dadosA" class="aviso-texto"></p>
+            </div>
+            <button id="buscarId" class="form-button">Buscar para Atualizar</button>
+
+            <div id="infoAtualizar" class="resultado-box"></div>
+        </section>
+
+        <!-- 4. BLOCO DE EXCLUIR FUNCIONÁRIO -->
+        <section class="painel-card">
+            <h2>Excluir Funcionário</h2>
+            <div class="form-group">
+                <label class="form-label" for="verificarExcluir">ID do funcionário a ser excluído:</label>
+                <input id="verificarExcluir" class="form-input" type="text"> 
+                <p id="pid" class="aviso-texto"></p>
+            </div>
+            <button id="VExcluir" class="form-button-danger">Verificar funcionário</button>
+
+            <div id="divExcluir" class="resultado-box"></div>
+        </section>
+
+    </main>
+
+    <!-- 5. BLOCO DE LISTAR TODOS -->
+    <section class="painel-card-full">
+        <h2>Lista de Funcionários</h2>
+        <button id="listar" class="form-button">Carregar Lista de Funcionários</button>
+        <div id="lista" class="lista-container"></div>
+    </section>
+
+    <!-- Script original mantido intacto -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Bem-vindo ao Meu SaaS</title>
+    
+    <!-- 
+      Um pouco de CSS básico apenas para a apresentação.
+      Isso faz os links <a> ficarem com aparência de botões de verdade!
+    -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center; /* Centraliza tudo na tela */
+            margin-top: 100px;
+        }
+
+        .botao {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            text-decoration: none; /* Tira o sublinhado do link */
+            color: white;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* Cor azul para o botão de Login */
+        .botao-login {
+            background-color: #007BFF;
+        }
+
+        /* Cor verde para o botão de Cadastro */
+        .botao-cadastro {
+            background-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- O título e o texto de venda do seu sistema -->
+    <h1>Bem-vindo ao Nosso SaaS!</h1>
+    <p>A melhor plataforma para gerenciar os funcionários da sua empresa de forma segura e inteligente.</p>
+    
+    <br>
+
+    <!-- 
+      Aqui está o segredo: redirecionamento puro usando HTML (href).
+      Não precisamos de fetch() nem de window.location aqui.
+    -->
+    <a href="index.html" class="botao botao-login">Fazer Login</a>
+    
+    <a href="index_cadastro.html" class="botao botao-cadastro">Cadastrar Minha Empresa</a>
+
+</body>
+</html><!DOCTYPE html>

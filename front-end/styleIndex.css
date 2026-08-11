@@ -1,0 +1,294 @@
+/* ========================================================================== */
+/* 1. CONFIGURAÇÕES GLOBAIS E RESET DE ESTILOS                              */
+/* ========================================================================== */
+
+/* 
+  O seletor universal (*) aplica regras a todos os elementos da página.
+  Aqui removemos margens e preenchimentos padrões do navegador.
+*/
+* {
+    margin: 0;
+    padding: 0;
+    /* box-sizing garante que bordas e paddings não aumentem o tamanho total dos elementos */
+    box-sizing: border-box;
+    /* Define uma família de fontes moderna e limpa para todo o projeto */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 
+  Estilização padrão do corpo (body) para telas de Login e Cadastro.
+  Usamos Flexbox para centralizar perfeitamente o formulário no meio da tela.
+*/
+body {
+    background-color: #f4f6f9; /* Cor de fundo cinza bem claro e profissional */
+    height: 100vh; /* Ocupa 100% da altura da janela do navegador */
+    display: d-flex; /* Ativa o Flexbox */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+
+/* ========================================================================== */
+/* 2. ESTRUTURA DO CARTÃO DE LOGIN E CADASTRO (CONTAINER)                   */
+/* ========================================================================== */
+
+/* 
+  Estiliza a caixa branca central onde ficam os campos de login e cadastro.
+*/
+.login-container {
+    background-color: #ffffff; /* Fundo branco para destacar no fundo cinza */
+    padding: 40px; /* Espaçamento interno para os textos não grudarem nas bordas */
+    width: 100%;
+    max-width: 400px; /* Limita a largura máxima para não esticar demais em telas grandes */
+    border-radius: 8px; /* Arredonda levemente os cantos do cartão */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Cria uma sombra sutil ao redor para dar profundidade */
+}
+
+/* Estiliza o título principal dentro do cartão de login/cadastro */
+.login-container h2, 
+.login-container h1 {
+    margin-bottom: 24px;
+    color: #333333; /* Cor de texto escura para boa leitura */
+    font-size: 24px;
+    text-align: center; /* Centraliza o título */
+}
+
+
+/* ========================================================================== */
+/* 3. FORMULÁRIOS, LABELS E INPUTS                                          */
+/* ========================================================================== */
+
+/* 
+  O rótulo (label) que fica em cima de cada campo de texto.
+*/
+.form-label {
+    display: block; /* Faz o label ocupar a linha inteira, empurrando o input para a linha de baixo */
+    margin-bottom: 8px; /* Espaço entre o texto do label e a caixinha de input */
+    color: #555555; /* Cor cinza média */
+    font-size: 14px;
+    font-weight: 600; /* Deixa o texto um pouco mais negrito */
+}
+
+/* 
+  As caixas de texto onde o usuário digita (e-mail, senha, nome, etc.).
+*/
+.form-input {
+    width: 100%; /* Faz a caixa ocupar 100% da largura disponível no cartão */
+    padding: 12px; /* Espaçamento interno para o texto digitado respirar */
+    margin-bottom: 20px; /* Espaço de respiro antes do próximo elemento */
+    border: 1px solid #ccc; /* Linha de borda cinza padrão */
+    border-radius: 4px; /* Cantos levemente arredondados */
+    font-size: 14px;
+    transition: border-color 0.2s; /* Transição suave caso a cor da borda mude */
+}
+
+/* 
+  Efeito interativo: Ocorre quando o usuário clica dentro da caixinha para digitar (focus).
+*/
+.form-input:focus {
+    outline: none; /* Remove a bordinha padrão feia que o navegador coloca */
+    border-color: #007BFF; /* Muda a cor da borda para azul de destaque */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2); /* Cria um brilho azulado ao redor */
+}
+
+
+/* ========================================================================== */
+/* 4. BOTÕES DE AÇÃO (SALVAR, ENTRAR, CADASTRAR)                            */
+/* ========================================================================== */
+
+/* 
+  Estilo padrão para os botões principais de envio de formulário.
+*/
+.form-button {
+    width: 100%; /* Ocupa toda a largura do container */
+    padding: 12px;
+    background-color: #007BFF; /* Cor azul padrão de sistemas */
+    color: white; /* Texto em branco */
+    border: none; /* Remove bordas nativas */
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer; /* Transforma o mouse em uma mãozinha ao passar por cima */
+    transition: background-color 0.2s; /* Transição suave na cor */
+}
+
+/* Efeito ao passar o mouse por cima do botão principal (Hover) */
+.form-button:hover {
+    background-color: #0056b3; /* Um tom de azul mais escuro */
+}
+
+/* 
+  Botão de perigo específico para ações destrutivas, como exclusão de registros.
+*/
+.form-button-danger {
+    width: 100%;
+    padding: 12px;
+    background-color: #dc3545; /* Vermelho alerta */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* Efeito ao passar o mouse por cima do botão de perigo */
+.form-button-danger:hover {
+    background-color: #c82333; /* Vermelho escuro */
+}
+
+
+/* ========================================================================== */
+/* 5. RODAPÉS E LINKS DE NAVEGAÇÃO                                          */
+/* ========================================================================== */
+
+/* Área de rodapé dentro dos formulários de login/cadastro */
+.login-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #666666;
+}
+
+/* Estilização dos links dentro dos rodapés */
+.login-footer a {
+    color: #007BFF;
+    text-decoration: none; /* Remove o sublinhado padrão do link */
+}
+
+/* Efeito ao passar o mouse no link do rodapé */
+.login-footer a:hover {
+    text-decoration: underline; /* Coloca o sublinhado apenas ao interagir */
+}
+
+
+/* ========================================================================== */
+/* 6. ESTILIZAÇÃO DO PAINEL ADMINISTRATIVO (DASHBOARD)                      */
+/* ========================================================================== */
+
+/* 
+  Sobrescreve o comportamento do body especificamente para o painel.html,
+  permitindo que a página cresça para baixo e tenha rolagem livre.
+*/
+.painel-body {
+    background-color: #f4f6f9;
+    display: block; /* Sai do modo centralizado do login */
+    height: auto; /* Altura automática baseada no conteúdo */
+    padding: 30px; /* Margem interna nas bordas da tela */
+}
+
+/* Cabeçalho superior do painel */
+.painel-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.painel-header h1 {
+    color: #333;
+    font-size: 28px;
+}
+
+.painel-subtitulo {
+    color: #666;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* 
+  Uso de CSS Grid para organizar as ferramentas do painel em colunas responsivas.
+  Elas se ajustam sozinhas dependendo do tamanho da tela.
+*/
+.painel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Cria colunas fluidas */
+    gap: 20px; /* Espaçamento entre os blocos */
+    margin-bottom: 20px;
+}
+
+/* Cada ferramenta do painel vira um "card" isolado e limpo */
+.painel-card {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Títulos das caixas de ferramentas do painel */
+.painel-card h2 {
+    font-size: 18px;
+    color: #007BFF;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0; /* Linha divisória sutil abaixo do título */
+    padding-bottom: 8px;
+}
+
+/* Card especial para listagens que precisam ocupar a largura inteira da tela embaixo */
+.painel-card-full {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+}
+
+.painel-card-full h2 {
+    font-size: 18px;
+    color: #007BFF;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 8px;
+}
+
+
+/* ========================================================================== */
+/* 7. CLASSES AUXILIARES DE AVISOS E RESULTADOS DINÂMICOS                   */
+/* ========================================================================== */
+
+/* Caixa genérica onde o JavaScript injeta resultados de buscas */
+.resultado-box {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Textos de alerta ou avisos secundários */
+.aviso-texto {
+    font-size: 12px;
+    color: #e0a800; /* Tom amarelado/alaranjado de atenção */
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+
+/* Textos de feedback positivo de sucesso */
+.aviso-sucesso {
+    font-size: 13px;
+    color: #28a745; /* Verde sucesso */
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Container específico para acomodar a lista de funcionários gerada via script */
+.lista-container {
+    margin-top: 15px;
+}
+
+/* ========================================================================== */
+/* ESTILOS ESPECÍFICOS PARA OS INPUTS E BOTÕES DINÂMICOS DA ATUALIZAÇÃO       */
+/* ========================================================================== */
+
+/* Faz o input menorzinho não ocupar 100% da largura do card */
+.form-input-pequeno {
+    width: 100%;
+    max-width: 250px; /* Limita o tamanho para não ficar gigante */
+    padding: 8px 12px; /* Um pouco mais compacto */
+    margin-bottom: 12px;
+}
+
+/* Faz o botão de salvar alterações ficar com tamanho proporcional */
+.form-button-pequeno {
+    width: auto; /* Ocupa apenas o espaço necessário do texto + respiro */
+    padding: 8px 20px;
+    font-size: 14px;
+}

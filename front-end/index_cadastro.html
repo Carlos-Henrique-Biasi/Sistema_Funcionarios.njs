@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Empresa - Meu SaaS</title>
+    <!-- Conectamos o mesmo arquivo de estilos -->
+    <link rel="stylesheet" href="styleIndex.css">
+</head>
+<body>
+
+    <!-- ADICIONE A CLASSE AQUI: class="login-container" (reaproveitamos o card centralizado) -->
+    <div class="login-container">
+        <h1>Crie sua Empresa</h1>
+
+        <!-- Formulário de cadastro. -->
+        <form id="form-cadastro">
+            
+            <!-- ADICIONE A CLASSE AQUI NO LABEL: class="form-label" -->
+            <label class="form-label">Nome da Empresa:</label>
+            <!-- ADICIONE A CLASSE AQUI NO INPUT: class="form-input" -->
+            <input type="text" id="nome_empresa" class="form-input" required>
+
+            <!-- ADICIONE A CLASSE AQUI NO LABEL: class="form-label" -->
+            <label class="form-label">E-mail:</label>
+            <!-- ADICIONE A CLASSE AQUI NO INPUT: class="form-input" -->
+            <input type="email" id="email" class="form-input" required>
+            
+            <!-- ADICIONE A CLASSE AQUI NO LABEL: class="form-label" -->
+            <label class="form-label">Senha:</label>
+            <!-- ADICIONE A CLASSE AQUI NO INPUT: class="form-input" -->
+            <input type="password" id="senha" class="form-input" required>
+            
+            <!-- ADICIONE A CLASSE AQUI NO BOTÃO: class="form-button" -->
+            <button type="submit" class="form-button">Cadastrar Empresa</button>
+            
+        </form>
+
+        <!-- ADICIONE A CLASSE AQUI NO PARÁGRAFO: class="login-footer" -->
+        <p class="login-footer">Já tem uma conta? <a href="index.html">Faça login aqui</a></p>
+    </div>
+
+    <!-- Conectando com o script de cadastro -->
+    <script src="cadastro.js"></script>
+</body>
+</html>

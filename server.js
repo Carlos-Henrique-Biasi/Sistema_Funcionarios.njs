@@ -4,7 +4,7 @@ const path = require('path')
 
 
 const cors = require("cors")
-app.use(cors()) ///Permita que outros sites e páginas façam requisições para minha API.
+app.use(cors()) //Permita que outros sites e páginas façam requisições para minha API.
 app.use(express.json())
 
 // A MÁGICA ACONTECE AQUI:

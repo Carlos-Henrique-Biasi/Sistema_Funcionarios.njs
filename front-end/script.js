@@ -13,12 +13,12 @@ if (tituloBoasVindas && nomeDaEmpresa) {
     tituloBoasVindas.innerText = "Bem-vindo, " + nomeDaEmpresa + "!";
 }
 
-
 const botaoF = document.getElementById("buscar");
 const botaoL = document.getElementById("listar")
 const botaoC = document.getElementById('cadastrar')
 const botaoB = document.getElementById('buscarId')
 const botaoV = document.getElementById('VExcluir')
+const btnFolha = document.getElementById("btnFolha"); // Botão novo da folha
 
 const inputID = document.querySelector("#idF");
 const pNome = document.getElementById("nome");
@@ -33,12 +33,16 @@ const dados = document.getElementById("dadosA")
 const pid = document.getElementById("pid")
 const divExcluir = document.getElementById("divExcluir")
 
+// Elementos onde os números grandes da folha vão aparecer
+const infoQtd = document.getElementById("infoQtd");
+const infoTotal = document.getElementById("infoTotal");
 
 botaoF.addEventListener("click", buscarFuncionario);
 botaoL.addEventListener("click", gerarLista)
 botaoC.addEventListener("click", cadastrarFuncionario)
 botaoB.addEventListener("click", buscarId)
 botaoV.addEventListener("click", verificar)
+btnFolha.addEventListener("click", calcularFolha); // Evento da folha
 
 
 async function buscarFuncionario(){
@@ -50,7 +54,6 @@ async function buscarFuncionario(){
         return;
     }
 
-    // Passando o id do funcionário E o id da empresa logada na URL
     const resposta = await fetch(`http://localhost:3000/funcionarios/${id}/empresa/${idDaEmpresa}`)
     const funcionario = await resposta.json()
 
@@ -64,7 +67,6 @@ async function buscarFuncionario(){
 }
 
 async function gerarLista() {
-    // Buscando a lista filtrada apenas pelos funcionários desta empresa
     const resposta = await fetch(`http://localhost:3000/funcionarios/empresa/${idDaEmpresa}`)
     const listaJSON = await resposta.json()
 
@@ -82,14 +84,28 @@ async function gerarLista() {
     });
 }
 
+// NOVA FUNÇÃO: Calcula a folha e injeta nos novos elementos HTML
+async function calcularFolha() {
+    const resposta = await fetch(`http://localhost:3000/funcionarios/folha/${idDaEmpresa}`);
+    const dadosApi = await resposta.json();
+
+    if (dadosApi.qtd > 0) {
+        infoQtd.textContent = dadosApi.qtd;
+        // Formata o número com 2 casas decimais e substitui o ponto pela vírgula (padrão Brasil)
+        infoTotal.textContent = `R$ ${Number(dadosApi.total).toFixed(2)}`;
+    } else {
+        infoQtd.textContent = "0";
+        infoTotal.textContent = "R$ 0.00";
+    }
+}
+
 async function cadastrarFuncionario() {
     const nomeC = document.querySelector("#cadastrarNome").value.trim()
     const salarioC = Number(document.querySelector("#cadastrarSalario").value)
 
-    // Validação extra: Se digitaram algo no nome, verifica se não é composto apenas por números
     if(nomeC !== "" && !isNaN(nomeC)){
         cvn.textContent = "Por favor, digite um nome válido (não apenas números)."
-                return;
+        return;
     }
 
     if(nomeC.length == 0){
@@ -110,7 +126,6 @@ async function cadastrarFuncionario() {
     cvs.textContent = ""
     fc.textContent = ""
 
-    // Enviando o empresa_id junto no pacote JSON para o backend salvar vinculado à empresa
     const funcionario = {
         nome: nomeC,
         salario: salarioC,
@@ -132,6 +147,8 @@ async function cadastrarFuncionario() {
         document.querySelector("#cadastrarNome").value = "";
         document.querySelector("#cadastrarSalario").value = "";
         await gerarLista()
+        // Opcional: já atualiza a folha automaticamente após cadastrar
+        await calcularFolha(); 
     }else{
         fc.textContent = `Erro: ${respostaJSON.erro}`
     }
@@ -184,7 +201,6 @@ async function buscarId() {
                 return;
             }
 
-            // Validação extra: Se digitaram algo no nome, verifica se não é composto apenas por números
             if(NNome !== "" && !isNaN(NNome)){
                 status.textContent = "Por favor, digite um nome válido (não apenas números)."
                 return;
@@ -212,6 +228,8 @@ async function buscarId() {
             if(respostaUpdate.ok){
                 status.textContent = "Funcionário atualizado com sucesso!"
                 await gerarLista()
+                // Atualiza a folha de pagamento caso o salário tenha sido alterado
+                await calcularFolha(); 
                 dados.textContent = ""
                 infos.textContent = ""
             }else{
@@ -254,6 +272,8 @@ async function verificar() {
                 pid.textContent = "" 
                 divExcluir.textContent = "Funcionário excluído com sucesso."
                 await gerarLista()
+                // Atualiza a folha após a exclusão de um funcionário
+                await calcularFolha();
             }else{
                 divExcluir.textContent = respostaJSON.erro
             }

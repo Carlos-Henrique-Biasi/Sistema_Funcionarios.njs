@@ -78,14 +78,39 @@
 
     </main>
 
-    <!-- 5. BLOCO DE LISTAR TODOS -->
+    <!-- 5. BLOCO DE FOLHA DE PAGAMENTO (Distribuído simetricamente) -->
+    <section class="painel-card-full">
+        <h2>Folha de Pagamento</h2>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 15px;">
+            
+            <!-- Esquerda: Botão -->
+            <div style="flex: 1; min-width: 200px;">
+                <button id="btnFolha" class="form-button">Calcular Total da Folha</button>
+            </div>
+            
+            <!-- Centro: Total de Funcionários -->
+            <div style="flex: 1; text-align: center; min-width: 200px;">
+                <p style="font-size: 14px; color: #555; font-weight: 600; margin-bottom: 5px;">Total de Funcionários</p>
+                <p id="infoQtd" style="font-size: 28px; font-weight: bold; color: #333;">-</p>
+            </div>
+            
+            <!-- Direita: Valor Total da Folha -->
+            <div style="flex: 1; text-align: right; min-width: 200px;">
+                <p style="font-size: 14px; color: #555; font-weight: 600; margin-bottom: 5px;">Valor Total da Folha</p>
+                <p id="infoTotal" style="font-size: 28px; font-weight: bold; color: #28a745;">R$ 0.00</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 6. BLOCO DE LISTAR TODOS -->
     <section class="painel-card-full">
         <h2>Lista de Funcionários</h2>
         <button id="listar" class="form-button">Carregar Lista de Funcionários</button>
         <div id="lista" class="lista-container"></div>
     </section>
 
-    <!-- Script original mantido intacto -->
     <script src="script.js"></script>
 </body>
 </html>

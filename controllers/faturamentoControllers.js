@@ -11,9 +11,9 @@ const gravarFaturamento = async (req,res) =>{
     try{
         const [faturamentoExiste] = await db.query('SELECT * FROM faturamento WHERE empresa_id = ?', [empresa_id])
         if(faturamentoExiste.length > 0){
-            //código que atualiza o banco de dados.
+            //codigo que atualiza o banco de dados.
         }else{
-            //código que adiciona ao banco de dados.
+            //codigo que adiciona ao banco de dados.
         }
     }catch(erro){
         console.log(erro)
@@ -21,6 +21,9 @@ const gravarFaturamento = async (req,res) =>{
     }
 }
 
+const editarFaturamento = async (req,res) =>{
+    
+}
 const excluirFaturamento = async (req,res) =>{
     
 }

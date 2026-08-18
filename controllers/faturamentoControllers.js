@@ -12,6 +12,9 @@ const gravarFaturamento = async (req,res) =>{
         return res.status(400).json{( erro: "Digite um valor diferente de um número.")}
     }
 
+    if(data == undefined || data.trim().length == 0){
+        return res.status(400).json({ erro: "Digite um valor válido."})
+    }
 
 
 

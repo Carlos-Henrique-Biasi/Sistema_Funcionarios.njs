@@ -2,11 +2,18 @@ const db = require("../data/db")
 
 const gravarFaturamento = async (req,res) =>{
     const {empresa_id} = req.params
-    const {faturamento} = req.body
+    const {valor, motivo ,data} = req.body
 
-    if(faturamento <= 0 || /*regra nan*/ || faturamento.trim().length == 0){
+    if(valor <= 0 || Number.isNaN(valor) || valor.trim().length == 0){
         return res.status(400).json({ erro: "Digite um valor válido."})
     }
+
+    if(motivo == Number){
+        return res.status(400).json{( erro: "Digite um valor diferente de um número.")}
+    }
+
+
+
 
     try{
        

@@ -9,12 +9,7 @@ const gravarFaturamento = async (req,res) =>{
     }
 
     try{
-        const [faturamentoExiste] = await db.query('SELECT * FROM faturamento WHERE empresa_id = ?', [empresa_id])
-        if(faturamentoExiste.length > 0){
-            //codigo que atualiza o banco de dados.
-        }else{
-            //codigo que adiciona ao banco de dados.
-        }
+       
     }catch(erro){
         console.log(erro)
         res.status(500).json({ erro: "Erro ao cadastrar faturamento." })

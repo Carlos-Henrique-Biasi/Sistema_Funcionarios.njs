@@ -7,15 +7,12 @@ const gravarFaturamento = async (req,res) =>{
     if(valor <= 0 || Number.isNaN(valor) || valor.trim().length == 0){
         return res.status(400).json({ erro: "Digite um valor válido."})
     }
-
     if(motivo == Number){
         return res.status(400).json{( erro: "Digite um valor diferente de um número.")}
     }
-
     if(data == undefined || data.trim().length == 0){
         return res.status(400).json({ erro: "Digite um valor válido."})
     }
-
 
 
     try{

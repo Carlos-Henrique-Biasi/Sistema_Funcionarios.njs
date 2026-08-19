@@ -1,10 +1,12 @@
 const db = require("../data/db")
 
 const gravarFaturamento = async (req,res) =>{
-    const {empresa_id} = req.params
-    const {valor, motivo, data} = req.body
+    const {valor, motivo, data, empresa_id} = req.body
     const valorConvertido = Number(valor)
 
+    if(!empresa_id || empresa_id < 0){
+        return res.status(400).json({ erro: "Empresa não informada."})
+    }
     if(valorConvertido <= 0 || Number.isNaN(valorConvertido) || valorConvertido == undefined){
         return res.status(400).json({ erro: "Digite um valor válido."})
     }

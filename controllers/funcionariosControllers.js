@@ -73,12 +73,18 @@ const atualizarFuncionario = async (req, res) => {
     try {
         let camposParaAtualizar = []
         let valores = []
+
         if (nome !== undefined) { camposParaAtualizar.push('nome = ?'); valores.push(nome) }
         if (salario !== undefined) { camposParaAtualizar.push('salario = ?'); valores.push(salario) }
+
         valores.push(id, empresa_id)
         const query = `UPDATE funcionarios SET ${camposParaAtualizar.join(', ')} WHERE id = ? AND empresa_id = ?`
         const [resultado] = await db.query(query, valores)
-        if (resultado.affectedRows === 0) { return res.status(404).json({ erro: "Funcionário não encontrado ou não pertence a esta empresa." })}
+
+        if (resultado.affectedRows === 0){
+             return res.status(404).json({ erro: "Funcionário não encontrado ou não pertence a esta empresa." })
+        }
+        
         res.status(200).json({ mensagem: "Funcionário atualizado com sucesso!" })
     } catch (erro) {
         console.log(erro)

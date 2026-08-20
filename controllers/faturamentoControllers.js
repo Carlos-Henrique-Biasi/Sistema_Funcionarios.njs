@@ -30,7 +30,7 @@ const gravarFaturamento = async (req,res) =>{
 
     try{ 
         const [resultado] = await db.query(
-            'INSERT INTO faturamento (valor, motivo, data, empresa_id) VALUES (? ,?, ?, ?)', 
+            'INSERT INTO faturamentos (valor, motivo, data, empresa_id) VALUES (? ,?, ?, ?)', 
             [valor, motivo, data, empresa_id]
         )
         res.status(201).json({respostaStatus: "Faturamento cadastrado com sucesso.", faturamentoId: resultado.insertId})
@@ -72,11 +72,11 @@ const editarFaturamento = async (req,res) =>{
         let valores = []
 
         if (valor !== undefined) { camposParaAtualizar.push('valor = ?'); valores.push(valor) }
-        if (motivo !== undefined) { camposParaAtualizar.push('mortivo = ?'); valores.push(motivo) }
-        if (data !== undefined) {camposParaAtualizar.push('data = ?'); valores.push(motivo)}
+        if (motivo !== undefined) { camposParaAtualizar.push('motivo = ?'); valores.push(motivo) }
+        if (data !== undefined) {camposParaAtualizar.push('data = ?'); valores.push(data)}
         valores.push(id, empresa_id)
 
-        const query = `UPDATE funcionarios SET ${camposParaAtualizar.join(', ')} WHERE id = ? AND empresa_id = ?`
+        const query = `UPDATE faturamentos SET ${camposParaAtualizar.join(', ')} WHERE id = ? AND empresa_id = ?`
         const [resultado] = await db.query(query, valores)
 
         if (resultado.affectedRows === 0){
@@ -94,7 +94,7 @@ const excluirFaturamento = async (req,res) =>{
     const { id, empresa_id } = req.params 
     try {
         const [resultado] = await db.query(
-            'DELETE FROM faturamento WHERE id = ? AND empresa_id = ?',
+            'DELETE FROM faturamentos WHERE id = ? AND empresa_id = ?',
              [id, empresa_id]
         )
         
@@ -114,7 +114,7 @@ const listarFaturamento = async (req,res) =>{
     const { empresa_id } = req.params
     try {
         const [faturamentos] = await db.query(
-            'SELECT * FROM faturamento WHERE empresa_id = ?', 
+            'SELECT * FROM faturamentos WHERE empresa_id = ?', 
             [empresa_id]
         )
         res.status(200).json(faturamentos)
@@ -129,7 +129,7 @@ const pegar1Faturamento = async (req,res) =>{
     
     try{
         const [faturamento] = await db.query(
-            'SELECT * FROM faturamento WHERE empresa_id = ? AND id = ?', 
+            'SELECT * FROM faturamentos WHERE empresa_id = ? AND id = ?', 
             [empresa_id, id]
         )
 
@@ -149,7 +149,7 @@ const calcularFaturamentoTotal = async (req,res) =>{
     const { empresa_id } = req.params
         try {
             const [faturamento] = await db.query(
-                'SELECT SUM(valor) as total, COUNT(*) as qtd FROM faturamento WHERE empresa_id = ?', 
+                'SELECT SUM(valor) as total, COUNT(*) as qtd FROM faturamentos WHERE empresa_id = ?', 
                 [empresa_id]
             )
             res.status(200).json(faturamento[0])

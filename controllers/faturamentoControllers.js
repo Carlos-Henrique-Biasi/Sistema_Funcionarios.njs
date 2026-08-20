@@ -1,3 +1,12 @@
+/*
+variaveis: 
+id  -  PK
+empresa_id  -  PF
+valor
+motivo
+data
+*/
+
 const db = require("../data/db")
 
 const gravarFaturamento = async (req,res) =>{

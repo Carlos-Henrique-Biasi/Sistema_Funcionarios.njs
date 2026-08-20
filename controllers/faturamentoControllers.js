@@ -68,7 +68,23 @@ const editarFaturamento = async (req,res) =>{
     }
 
     try{
-        //codigo para enviar ao mysql
+        let camposParaAtualizar = []
+        let valores = []
+
+        if (valor !== undefined) { camposParaAtualizar.push('valor = ?'); valores.push(valor) }
+        if (motivo !== undefined) { camposParaAtualizar.push('mortivo = ?'); valores.push(motivo) }
+        if (data !== undefined) {camposParaAtualizar.push('data = ?'); valores.push(motivo)}
+        valores.push(id, empresa_id)
+
+        const query = `UPDATE funcionarios SET ${camposParaAtualizar.join(', ')} WHERE id = ? AND empresa_id = ?`
+        const [resultado] = await db.query(query, valores)
+
+        if (resultado.affectedRows === 0){
+             return res.status(404).json({ erro: "Faturamento não encontrado ou não pertence a esta empresa." })
+        }
+        
+        res.status(200).json({ mensagem: "Faturamento atualizado com sucesso!" })
+
     }catch(erro){
         console.log(erro)
         res.status(500).json({ erro: "Erro ao editar faturamento." })

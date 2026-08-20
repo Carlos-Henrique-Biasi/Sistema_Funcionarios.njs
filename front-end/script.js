@@ -13,13 +13,16 @@ if (tituloBoasVindas && nomeDaEmpresa) {
     tituloBoasVindas.innerText = "Bem-vindo, " + nomeDaEmpresa + "!";
 }
 
+//===========================BOTOES FOLHA DE PAGAMENTO==========================================
 const botaoF = document.getElementById("buscar");
 const botaoL = document.getElementById("listar")
 const botaoC = document.getElementById('cadastrar')
 const botaoB = document.getElementById('buscarId')
 const botaoV = document.getElementById('VExcluir')
 const btnFolha = document.getElementById("btnFolha"); // Botão novo da folha
+//===========================BOTOES FOLHA DE PAGAMENTO=============================================
 
+//===========================ELEMENTOS FOLHA DE PAGAMENTO==========================================
 const inputID = document.querySelector("#idF");
 const pNome = document.getElementById("nome");
 const pSalario = document.getElementById("salario");
@@ -36,6 +39,9 @@ const divExcluir = document.getElementById("divExcluir")
 // Elementos onde os números grandes da folha vão aparecer
 const infoQtd = document.getElementById("infoQtd");
 const infoTotal = document.getElementById("infoTotal");
+//===========================ELEMENTOS FOLHA DE PAGAMENTO==========================================
+
+//===========================ACOES DOS BOTOES FOLHA DE PAGAMENTO===================================
 
 botaoF.addEventListener("click", buscarFuncionario);
 botaoL.addEventListener("click", gerarLista)
@@ -44,7 +50,9 @@ botaoB.addEventListener("click", buscarId)
 botaoV.addEventListener("click", verificar)
 btnFolha.addEventListener("click", calcularFolha); // Evento da folha
 
+//===========================ACOES DOS BOTOES FOLHA DE PAGAMENTO===================================
 
+//===========================FUNCOES FOLHA DE PAGAMENTO============================================
 async function buscarFuncionario(){
     const id = inputID.value
 
@@ -280,3 +288,4 @@ async function verificar() {
         }
     } 
 }
+//===========================FUNCOES FOLHA DE PAGAMENTO============================================

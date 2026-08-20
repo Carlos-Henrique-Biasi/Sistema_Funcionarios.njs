@@ -61,7 +61,7 @@ const editarFaturamento = async (req,res) =>{
 
     if(
         valor == undefined && 
-        (motivo == undefined || motivo.trim().length == 0) &&
+        (motivo == undefined || String(motivo).trim().length == 0) &&
         data == undefined
     ){
         return res.status(400).json({ erro : "Algum campo deve ser preenchido para editar."})
@@ -71,7 +71,7 @@ const editarFaturamento = async (req,res) =>{
         let camposParaAtualizar = []
         let valores = []
 
-        if (valor !== undefined) { camposParaAtualizar.push('valor = ?'); valores.push(valor) }
+        if (valor !== undefined) { camposParaAtualizar.push('valor = ?'); valores.push(valorConvertido) }
         if (motivo !== undefined) { camposParaAtualizar.push('motivo = ?'); valores.push(motivo) }
         if (data !== undefined) {camposParaAtualizar.push('data = ?'); valores.push(data)}
         valores.push(id, empresa_id)

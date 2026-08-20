@@ -202,7 +202,7 @@ async function buscarId() {
             }
 
             if(NNome !== "" && !isNaN(NNome)){
-                status.textContent = "Por favor, digite um nome válido (não apenas números)."
+                status.innerHTML = "Por favor, digite um nome válido (não apenas números). <style> #status{color: red;}</style>"
                 return;
             }
 

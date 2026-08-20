@@ -69,7 +69,11 @@ const criarFuncionario = async (req, res) => {
 const atualizarFuncionario = async (req, res) => {
     const { id, empresa_id } = req.params 
     const { nome, salario } = req.body 
-    if (nome === undefined && salario === undefined) { return res.status(400).json({erro: "Alguma informação deve receber alteração."})}
+    
+    if (nome === undefined && salario === undefined){
+         return res.status(400).json({erro: "Alguma informação deve receber alteração."})
+    }
+    
     try {
         let camposParaAtualizar = []
         let valores = []

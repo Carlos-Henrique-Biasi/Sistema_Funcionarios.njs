@@ -2,9 +2,9 @@
 variaveis: 
 id  -  PK
 empresa_id  -  PF
-valor
-motivo
-data
+valor - int
+motivo - Varchar
+data - YYYY/MM/DD
 */
 
 const db = require("../data/db")
@@ -29,7 +29,11 @@ const gravarFaturamento = async (req,res) =>{
     }
 
     try{ 
-        //codigo mysql
+        const [resultado] = await db.query(
+            'INSERT INTO faturamento (valor, motivo, data, empresa_id) VALUES (? ,?, ?, ?)', 
+            [valor, motivo, data, empresa_id]
+        )
+        res.status(201).json({respostaStatus: "Faturamento cadastrado com sucesso.", faturamentoId: resultado.insertId})
     }catch(erro){
         console.log(erro)
         res.status(500).json({ erro: "Erro ao cadastrar faturamento." })

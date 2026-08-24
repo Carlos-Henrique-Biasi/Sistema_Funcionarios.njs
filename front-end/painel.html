@@ -3,117 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <title>Painel da Empresa - SaaS</title>
-    <!-- Conectamos o mesmo arquivo de estilos para manter o padrão -->
+    <!-- Conectamos o mesmo arquivo de estilos -->
     <link rel="stylesheet" href="styleIndex.css">
 </head>
 <body class="painel-body">
 
-    <!-- Topo / Cabeçalho do Painel -->
+    <!-- ========================================== -->
+    <!-- 1. MENU LATERAL E BOTÃO HAMBÚRGUER         -->
+    <!-- ========================================== -->
+    <button id="btnMenu" class="btn-menu-hamburguer">☰</button>
+
+    <nav id="menuLateral" class="menu-lateral">
+        <h2 class="menu-titulo">Menu SaaS</h2>
+        <ul class="menu-lista">
+            <!-- O botão de funcionários já começa com a classe 'ativa' -->
+            <li><button id="abaFuncionarios" class="menu-item ativa">Folha de Pagamento</button></li>
+            <li><button id="abaFaturamentos" class="menu-item">Faturamentos</button></li>
+            <li><button id="abaDespesas" class="menu-item">Despesas</button></li>
+            <li><button id="abaReceita" class="menu-item">Receita</button></li>
+        </ul>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- 2. CABEÇALHO DO PAINEL                     -->
+    <!-- ========================================== -->
     <header class="painel-header">
         <h1 id="mensagem-boas-vindas">Bem-vindo(a)!</h1>
-        <p class="painel-subtitulo">Gerencie os funcionários da sua empresa de forma rápida e segura.</p>
+        <p class="painel-subtitulo">Gerencie a sua empresa de forma rápida e segura.</p>
     </header>
 
 
-<div class="opcao">
-    <main class="painel-grid">
+    <!-- ========================================== -->
+    <!-- 3. TELA DE FUNCIONÁRIOS (Visível padrão)   -->
+    <!-- ========================================== -->
+    <div id="secaoFuncionarios" class="opcao">
+        <main class="painel-grid">
+            <!-- 1. BLOCO DE BUSCAR FUNCIONÁRIO -->
+            <section class="painel-card">
+                <h2>Buscar Funcionário</h2>
+                <div class="form-group">
+                    <label class="form-label" for="idF">Digite o ID:</label>
+                    <input id="idF" class="form-input" type="number">
+                </div>
+                <button id="buscar" class="form-button">Buscar Funcionário</button>
+                
+                <div id="infoF" class="resultado-box">
+                    <p id="nome"></p>
+                    <p id="salario"></p>
+                </div>
+            </section>
 
-        <!-- 1. BLOCO DE BUSCAR FUNCIONÁRIO -->
-        <section class="painel-card">
-            <h2>Buscar Funcionário</h2>
-            <div class="form-group">
-                <label class="form-label" for="idF">Digite o ID:</label>
-                <input id="idF" class="form-input" type="number">
-            </div>
-            <button id="buscar" class="form-button">Buscar Funcionário</button>
-            
-            <div id="infoF" class="resultado-box">
-                <p id="nome"></p>
-                <p id="salario"></p>
+            <!-- 2. BLOCO DE CADASTRAR FUNCIONÁRIO -->
+            <section class="painel-card">
+                <h2>Cadastrar Novo Funcionário</h2>
+                <div class="form-group">
+                    <label class="form-label" for="cadastrarNome">Nome do funcionário:</label>
+                    <input id="cadastrarNome" class="form-input" type="text">
+                    <p id="cvn" class="aviso-texto"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="cadastrarSalario">Salário do funcionário:</label>
+                    <input id="cadastrarSalario" class="form-input" type="text">
+                    <p id="cvs" class="aviso-texto"></p>
+                </div>
+
+                <button id="cadastrar" class="form-button">Cadastrar</button>
+                <p id="fc" class="aviso-sucesso"></p>
+            </section>
+
+            <!-- 3. BLOCO DE ATUALIZAR FUNCIONÁRIO -->
+            <section class="painel-card">
+                <h2>Atualizar Funcionário</h2>
+                <div class="form-group">
+                    <label class="form-label" for="buscarId_input">ID do funcionário a ser atualizado:</label>
+                    <input id="buscarId_input" class="form-input" type="text"> 
+                    <p id="dadosA" class="aviso-texto"></p>
+                </div>
+                <button id="buscarId" class="form-button">Buscar para Atualizar</button>
+
+                <div id="infoAtualizar" class="resultado-box"></div>
+            </section>
+
+            <!-- 4. BLOCO DE EXCLUIR FUNCIONÁRIO -->
+            <section class="painel-card">
+                <h2>Excluir Funcionário</h2>
+                <div class="form-group">
+                    <label class="form-label" for="verificarExcluir">ID do funcionário a ser excluído:</label>
+                    <input id="verificarExcluir" class="form-input" type="text"> 
+                    <p id="pid" class="aviso-texto"></p>
+                </div>
+                <button id="VExcluir" class="form-button-danger">Verificar funcionário</button>
+
+                <div id="divExcluir" class="resultado-box"></div>
+            </section>
+        </main>
+
+        <!-- 5. BLOCO DE FOLHA DE PAGAMENTO -->
+        <section class="painel-card-full">
+            <h2>Folha de Pagamento</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 15px;">
+                <div style="flex: 1; min-width: 200px;">
+                    <button id="btnFolha" class="form-button">Calcular Total da Folha</button>
+                </div>
+                <div style="flex: 1; text-align: center; min-width: 200px;">
+                    <p style="font-size: 14px; color: #555; font-weight: 600; margin-bottom: 5px;">Total de Funcionários</p>
+                    <p id="infoQtd" style="font-size: 28px; font-weight: bold; color: #333;">-</p>
+                </div>
+                <div style="flex: 1; text-align: right; min-width: 200px;">
+                    <p style="font-size: 14px; color: #555; font-weight: 600; margin-bottom: 5px;">Valor Total da Folha</p>
+                    <p id="infoTotal" style="font-size: 28px; font-weight: bold; color: #28a745;">R$ 0.00</p>
+                </div>
             </div>
         </section>
 
-        <!-- 2. BLOCO DE CADASTRAR FUNCIONÁRIO -->
-        <section class="painel-card">
-            <h2>Cadastrar Novo Funcionário</h2>
-            <div class="form-group">
-                <label class="form-label" for="cadastrarNome">Nome do funcionário:</label>
-                <input id="cadastrarNome" class="form-input" type="text">
-                <p id="cvn" class="aviso-texto"></p>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label" for="cadastrarSalario">Salário do funcionário:</label>
-                <input id="cadastrarSalario" class="form-input" type="text">
-                <p id="cvs" class="aviso-texto"></p>
-            </div>
+        <!-- 6. BLOCO DE LISTAR TODOS -->
+        <section class="painel-card-full">
+            <h2>Lista de Funcionários</h2>
+            <button id="listar" class="form-button">Carregar Lista de Funcionários</button>
+            <div id="lista" class="lista-container"></div>
+        </section>
+    </div>
 
-            <button id="cadastrar" class="form-button">Cadastrar</button>
-            <p id="fc" class="aviso-sucesso"></p>
+
+    <!-- ========================================== -->
+    <!-- 4. TELA DE FATURAMENTO (Escondida)         -->
+    <!-- ========================================== -->
+    <div id="secaoFaturamentos" class="opcao" style="display: none;">
+        <main class="painel-grid">
+            <!-- 1. BLOCO DE BUSCAR FATURAMENTO -->
+            <section class="painel-card">
+                <h2>Buscar Faturamento</h2>
+                <div class="form-group">
+                    <label class="form-label" for="idBuscaFat">Digite o ID do Faturamento:</label>
+                    <input id="idBuscaFat" class="form-input" type="number">
+                </div>
+                <button id="btnBuscarFat" class="form-button">Buscar</button>
+                
+                <div id="infoFat" class="resultado-box">
+                    <p id="fatValor"></p>
+                    <p id="fatMotivo"></p>
+                    <p id="fatData"></p>
+                </div>
+            </section>
+
+            <!-- 2. BLOCO DE CADASTRAR FATURAMENTO -->
+            <section class="painel-card">
+                <h2>Cadastrar Faturamento</h2>
+                <div class="form-group">
+                    <label class="form-label" for="cadastrarValorFat">Valor (R$):</label>
+                    <input id="cadastrarValorFat" class="form-input" type="number" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="cadastrarMotivoFat">Motivo (opcional):</label>
+                    <input id="cadastrarMotivoFat" class="form-input" type="text" placeholder="Ex: Venda de Produto">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="cadastrarDataFat">Data:</label>
+                    <!-- Input do tipo date já abre o calendário no navegador! -->
+                    <input id="cadastrarDataFat" class="form-input" type="date">
+                </div>
+
+                <button id="btnCadastrarFat" class="form-button">Cadastrar</button>
+                <p id="msgCadFat" class="aviso-sucesso"></p>
+            </section>
+
+            <!-- 3. BLOCO DE ATUALIZAR FATURAMENTO -->
+            <section class="painel-card">
+                <h2>Atualizar Faturamento</h2>
+                <div class="form-group">
+                    <label class="form-label" for="buscaIdFat_input">ID para atualizar:</label>
+                    <input id="buscaIdFat_input" class="form-input" type="number"> 
+                    <p id="dadosAFat" class="aviso-texto"></p>
+                </div>
+                <button id="btnBuscarIdFat" class="form-button">Buscar para Atualizar</button>
+
+                <div id="infoAtualizarFat" class="resultado-box"></div>
+            </section>
+
+            <!-- 4. BLOCO DE EXCLUIR FATURAMENTO -->
+            <section class="painel-card">
+                <h2>Excluir Faturamento</h2>
+                <div class="form-group">
+                    <label class="form-label" for="verificarExcluirFat">ID para excluir:</label>
+                    <input id="verificarExcluirFat" class="form-input" type="number"> 
+                    <p id="pidFat" class="aviso-texto"></p>
+                </div>
+                <button id="btnVExcluirFat" class="form-button-danger">Verificar faturamento</button>
+
+                <div id="divExcluirFat" class="resultado-box"></div>
+            </section>
+        </main>
+
+        <!-- 5. BLOCO DE FATURAMENTO TOTAL -->
+        <section class="painel-card-full">
+            <h2>Painel de Faturamento</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 15px;">
+                <div style="flex: 1; min-width: 200px;">
+                    <button id="btnTotalFat" class="form-button">Calcular Faturamento Total</button>
+                </div>
+                <div style="flex: 1; text-align: center; min-width: 200px;">
+                    <p style="font-size: 14px; color: #555; font-weight: 600; margin-bottom: 5px;">Qtd. de Registros</p>
+                    <p id="infoQtdFat" style="font-size: 28px; font-weight: bold; color: #333;">-</p>
+                </div>
+                <div style="flex: 1; text-align: right; min-width: 200px;">
+                    <p style="font-size: 14px; color: #555; font-weight: 600; margin-bottom: 5px;">Receita Total</p>
+                    <!-- Em azul para diferenciar da folha de pagamento que é verde/vermelho -->
+                    <p id="infoTotalFat" style="font-size: 28px; font-weight: bold; color: #007bff;">R$ 0.00</p>
+                </div>
+            </div>
         </section>
 
-        <!-- 3. BLOCO DE ATUALIZAR FUNCIONÁRIO -->
-        <section class="painel-card">
-            <h2>Atualizar Funcionário</h2>
-            <div class="form-group">
-                <label class="form-label" for="buscarId_input">ID do funcionário a ser atualizado:</label>
-                <input id="buscarId_input" class="form-input" type="text"> 
-                <p id="dadosA" class="aviso-texto"></p>
-            </div>
-            <button id="buscarId" class="form-button">Buscar para Atualizar</button>
-
-            <div id="infoAtualizar" class="resultado-box"></div>
+        <!-- 6. BLOCO DE LISTAR TODOS FATURAMENTOS -->
+        <section class="painel-card-full">
+            <h2>Lista de Faturamentos</h2>
+            <button id="btnListarFat" class="form-button">Carregar Histórico</button>
+            <div id="listaFat" class="lista-container"></div>
         </section>
+    </div>
 
-        <!-- 4. BLOCO DE EXCLUIR FUNCIONÁRIO -->
-        <section class="painel-card">
-            <h2>Excluir Funcionário</h2>
-            <div class="form-group">
-                <label class="form-label" for="verificarExcluir">ID do funcionário a ser excluído:</label>
-                <input id="verificarExcluir" class="form-input" type="text"> 
-                <p id="pid" class="aviso-texto"></p>
-            </div>
-            <button id="VExcluir" class="form-button-danger">Verificar funcionário</button>
 
-            <div id="divExcluir" class="resultado-box"></div>
+    <!-- ========================================== -->
+    <!-- 5. TELA DE DESPESAS (Escondida / Em breve) -->
+    <!-- ========================================== -->
+    <div id="secaoDespesas" class="opcao" style="display: none;">
+        <section class="painel-card-full">
+            <h2>Módulo de Despesas</h2>
+            <p>Em breve: Gerenciamento de despesas da empresa.</p>
         </section>
+    </div>
 
-    </main>
 
-    <!-- 5. BLOCO DE FOLHA DE PAGAMENTO (Distribuído simetricamente) -->
-    <section class="painel-card-full">
-        <h2>Folha de Pagamento</h2>
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 15px;">
-            
-            <!-- Esquerda: Botão -->
-            <div style="flex: 1; min-width: 200px;">
-                <button id="btnFolha" class="form-button">Calcular Total da Folha</button>
-            </div>
-            
-            <!-- Centro: Total de Funcionários -->
-            <div style="flex: 1; text-align: center; min-width: 200px;">
-                <p style="font-size: 14px; color: #555; font-weight: 600; margin-bottom: 5px;">Total de Funcionários</p>
-                <p id="infoQtd" style="font-size: 28px; font-weight: bold; color: #333;">-</p>
-            </div>
-            
-            <!-- Direita: Valor Total da Folha -->
-            <div style="flex: 1; text-align: right; min-width: 200px;">
-                <p style="font-size: 14px; color: #555; font-weight: 600; margin-bottom: 5px;">Valor Total da Folha</p>
-                <p id="infoTotal" style="font-size: 28px; font-weight: bold; color: #28a745;">R$ 0.00</p>
-            </div>
+    <!-- ========================================== -->
+    <!-- 6. TELA DE RECEITAS (Escondida / Em breve) -->
+    <!-- ========================================== -->
+    <div id="secaoReceita" class="opcao" style="display: none;">
+        <section class="painel-card-full">
+            <h2>Módulo de Receitas Gerais</h2>
+            <p>Em breve: Balanço geral de receitas.</p>
+        </section>
+    </div>
 
-        </div>
-    </section>
-
-    <!-- 6. BLOCO DE LISTAR TODOS -->
-    <section class="painel-card-full">
-        <h2>Lista de Funcionários</h2>
-        <button id="listar" class="form-button">Carregar Lista de Funcionários</button>
-        <div id="lista" class="lista-container"></div>
-    </section>
-</div>
+    <!-- ========================================== -->
+    <!-- SCRIPTS (Sempre no final do body!)         -->
+    <!-- ========================================== -->
     <script src="scripts/global.js"></script>
     <script src="scripts/funcionarios.js"></script>
+    <script src="scripts/faturamento.js"></script> <!-- Script que você vai criar em seguida -->
 </body>
 </html>

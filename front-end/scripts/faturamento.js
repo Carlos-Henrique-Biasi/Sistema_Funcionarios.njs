@@ -46,3 +46,54 @@ botaoBuscarIDF2.addEventListener("click", buscarFaturamentoExclusao)
 botaoResultadoF.addEventListener("click", resultadoFaturamento)
 botaoBuscarFS.addEventListener("click", listarFaturamentos)
 //================================ AÇÕES DOS BOTÕES DE FATURAMENTO ================================
+
+//============================== FUNÇÕES DOS BOTÕES DE FATURAMENTO ================================
+async function buscarFaturamento(){
+    //limpar areas que podem estar preenchidas
+    //validar informações usando if's
+    //validado, fazer fatch, para jogar informações para back end
+    //se nescessário, fazer o fatch complexo, mostrando o método e demais infos
+    //devolver o status com json
+}
+
+async function cadastrarFaturamento(){
+    //limpar areas que podem estar preenchidas
+    //validar informações usando if's
+    //validado, fazer fatch, para jogar informações para back end
+    //se nescessário, fazer o fatch complexo, mostrando o método e demais infos
+    //devolver o status com json
+}
+
+async function buscarFaturamentoAtualizacao(){
+    //limpar areas que podem estar preenchidas
+    //validar informações usando if's
+    //validado, fazer fatch, para jogar informações para back end
+    //se nescessário, fazer o fatch complexo, mostrando o método e demais infos
+    //devolver o status com json
+}
+
+async function buscarFaturamentoExclusao(){
+    //limpar areas que podem estar preenchidas
+    //validar informações usando if's
+    //validado, fazer fatch, para jogar informações para back end
+    //se nescessário, fazer o fatch complexo, mostrando o método e demais infos
+    //devolver o status com json
+}
+
+async function resultadoFaturamento(){
+    //limpar areas que podem estar preenchidas
+    //validar informações usando if's
+    //validado, fazer fatch, para jogar informações para back end
+    //se nescessário, fazer o fatch complexo, mostrando o método e demais infos
+    //devolver o status com json
+}
+
+async function listarFaturamentos(){
+    //limpar areas que podem estar preenchidas
+    //validar informações usando if's
+    //validado, fazer fatch, para jogar informações para back end
+    //se nescessário, fazer o fatch complexo, mostrando o método e demais infos
+    //devolver o status com json
+}
+
+//============================== FUNÇÕES DOS BOTÕES DE FATURAMENTO ================================

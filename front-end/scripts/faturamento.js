@@ -144,85 +144,88 @@ async function buscarFaturamentoAtualizacao(){
         return
     }
 
-    const resposta = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`)
-    const faturamento = await resposta.json()
+    try{
+        const resposta = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`)
+        const faturamento = await resposta.json()
 
-    const{valor, motivo, data} = faturamento
+        const dataFormatada = new Date(data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+        
+        if(!resposta.ok){
+            infoAtualizarFat.textContent = faturamento.erro || "Faturamento não encontrado."
+        }else{
+            const{valor, motivo, data} = faturamento
+            const dataFormatada = new Date(data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
 
-    const dataFormatada = new Date(data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
-    
-    if(resposta.ok){
-        infoAtualizarFat.textContent = faturamento.erro || "Faturamento não encontrado."
+            infoAtualizarFat.innerHTML = `
+            Valor: ${valor} <br>
+            Motivo: ${motivo} <br>
+            Data: ${dataFormatada} <br> <br>
 
-    }else{
-        infoAtualizarFat.innerHTML = `
-        Valor: ${valor} <br>
-        Motivo: ${motivo} <br>
-        Data: ${dataFormatada} <br> <br>
+            <label class="form-label">Digite o novo valor (opcional):</label>
+            <input id="novoValor" class="form-input form-input-pequeno" type="text">
 
-        <label class="form-label">Digite o novo valor (opcional):</label>
-        <input id="novoValor" class="form-input form-input-pequeno" type="text">
+            <label class="form-label">Digite o novo Motivo (opcional):</label>
+            <input id="novoMotivo" class="form-input form-input-pequeno" type="text">
 
-        <label class="form-label">Digite o novo Motivo (opcional):</label>
-        <input id="novoMotivo" class="form-input form-input-pequeno" type="text">
+            <label class="form-label">Selecione uma nova data (opicional): (opcional):</label>
+            <input id="novaData" class="form-input form-input-pequeno" type="date">
 
-        <label class="form-label">Selecione uma nova data (opicional): (opcional):</label>
-        <input id="novaData" class="form-input form-input-pequeno" type="date">
+            <button id="atualizarFaturamentoId" class="form-button form-button-pequeno">Salvar Alterações</button>
 
-        <button id="atualizarFaturamentoId" class="form-button form-button-pequeno">Salvar Alterações</button>
+            <p id="status" class="aviso-sucesso"></p>
+            `
+            const botaoAFaturamento = document.getElementById('atualizarFaturamentoId')
+            botaoAFaturamento.addEventListener("click", atualizarFaturamento)
+        
+            async function atualizarFaturamento() {
+                const NValor = document.getElementById('novoValor').value
+                const NMotivo = document.getElementById('novoMotivo').value.trim()
+                const NData = document.getElementById('novaData').value
 
-        <p id="status" class="aviso-sucesso"></p>
-        `
-        const botaoAFaturamento = document.getElementById('atualizarFaturamentoId')
-        botaoAFaturamento.addEventListener("clcik", atualizarFaturamento)
-    
-        async function atualizarFaturamento() {
-            const NValor = document.getElementById('novoValor').value
-            const NMotivo = document.getElementById('novoMotivo').value.trim()
-            const NData = document.getElementById('novaData').value
+                if(NValor === "" && NMotivo === "" && NData === ""){
+                    infoAtualizarFat.innerHTML += "<br> Digite pelo menos um campo para ser alterado. <style> #status{color: red;}</style>"
+                    return
+                }
 
-            if(NValor === "" && NMotivo === "" && NData === ""){
-                infoAtualizarFat.innerHTML += "<br> Digite pelo menos um campo para ser alterado. <style> #status{color: red;}</style>"
-                return
+                if(NValor !== "" && isNaN(NValor) || NMotivo !== "" && !isNaN(NMotivo)){
+                    infoAtualizar.innerHTML = "Por favor, digite um campo válido. <style> #status{color: red;}</style>"
+                    return;
+                }
+
+                const dadosAtualizados = {}
+
+                if(NValor !== ""){
+                    dadosAtualizados.valor = Number(NValor)
+                }
+                if(NMotivo !== ""){
+                    dadosAtualizados.motivo = NMotivo
+                }
+                if(NData !== ""){
+                    dadosAtualizados.data = NData
+                }
+
+                const respostaUpdate = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: JSON.stringify(dadosAtualizados)
+                })
+                const respostaJSON = await respostaUpdate.json();
+
+                if(respostaUpdate.ok){
+                    infoAtualizarFat.textContent = "Faturamento atualizado com sucesso!"
+                    await listarFaturamento()
+                    await resultadoFaturamento(); 
+                }else{
+                    infoAtualizarFat.textContent = respostaJSON.erro 
+                }
+
             }
-
-            if(NValor !== "" && isNaN(NValor) || NMotivo !== "" && !isNaN(NMotivo)){
-                infoAtualizar.innerHTML = "Por favor, digite um campo válido. <style> #status{color: red;}</style>"
-                return;
-            }
-
-            const dadosAtualizados = {
-                empresa_id: idDaEmpresa
-            }
-
-            if(NValor !== ""){
-                dadosAtualizados.valor = Number(NValor)
-            }
-            if(NMotivo !== ""){
-                dadosAtualizados.motivo = NMotivo
-            }
-            if(NData !== ""){
-                dadosAtualizados.data = NData
-            }
-
-            const respostaUpdate = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`, {
-                method: "PUT",
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: JSON.stringify(dadosAtualizados)
-            })
-            const respostaJSON = await respostaUpdate.json();
-
-            if(respostaUpdate.ok){
-                infoAtualizarFat.textContent = "Faturamento atualizado com sucesso!"
-                await listarFaturamento()
-                await resultadoFaturamento(); 
-            }else{
-                infoAtualizarFat.textContent = respostaJSON.erro 
-            }
-
         }
+
+    }catch(erro){
+        infoAtualizarFat.textContent = "Erro ao conectar com o servidor."
     }
 }
 

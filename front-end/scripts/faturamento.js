@@ -119,6 +119,8 @@ async function cadastrarFaturamento(){
 
         const respostaJSON = await resposta.json();
 
+        console.log(resposta)
+
         if(resposta.ok){
             msgCadastroFat.textContent = "Faturamento cadastrado com sucesso!"
             document.querySelector("#cadastrarValorFat").value = "";

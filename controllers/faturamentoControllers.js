@@ -24,13 +24,16 @@ const gravarFaturamento = async (req,res) =>{
             return res.status(400).json({ erro: "Digite um motivo diferente de um número." });
         }
     }
-    if(data == undefined || new Date(data) > new Date() || Number.isNaN(new Date(data).getTime())){ //getTime() é tipo um number, que verifica o formato e se não estiver em formato de data, devolve NaN
-        return res.status(400).json({ erro: "Escolha um valor válido."})
+    const dataAtual = new Date();
+    dataAtual.setHours(23, 59, 59, 999); // Permite qualquer horário do dia de hoje
+    console.log(dataAtual)
+    if (!data || new Date(data) > dataAtual || Number.isNaN(new Date(data).getTime())) {
+        return res.status(400).json({ erro: "Escolha uma data válida." });
     }
 
     try{ 
         const [resultado] = await db.query(
-            'INSERT INTO faturamentos (valor, motivo, data, empresa_id) VALUES (? ,?, ?, ?)', 
+            'INSERT INTO faturamentos (valor, motivo, dataF, empresa_id) VALUES (? ,?, ?, ?)', 
             [valor, motivo, data, empresa_id]
         )
         res.status(201).json({respostaStatus: "Faturamento cadastrado com sucesso.", faturamentoId: resultado.insertId})
@@ -73,7 +76,7 @@ const editarFaturamento = async (req,res) =>{
 
         if (valor !== undefined) { camposParaAtualizar.push('valor = ?'); valores.push(valorConvertido) }
         if (motivo !== undefined) { camposParaAtualizar.push('motivo = ?'); valores.push(motivo) }
-        if (data !== undefined) {camposParaAtualizar.push('data = ?'); valores.push(data)}
+        if (data !== undefined) {camposParaAtualizar.push('dataF = ?'); valores.push(data)}
         valores.push(id, empresa_id)
 
         const query = `UPDATE faturamentos SET ${camposParaAtualizar.join(', ')} WHERE id = ? AND empresa_id = ?`

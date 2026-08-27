@@ -128,7 +128,7 @@ async function cadastrarFaturamento(){
             await listarFaturamento()
             await resultadoFaturamento(); 
         }else{
-            msgCadastroFat.textContent = respostaJSON.erro || "Erro ao cadastrar faturamento.";
+            msgCadastroFat.textContent = respostaJSON.erro || "Erro ao cadastrar faturamento."
         }
     }catch(erro){
         msgCadastroFat.textContent = "Erro ao conectar com o servidor."
@@ -137,11 +137,50 @@ async function cadastrarFaturamento(){
 }
 
 async function buscarFaturamentoAtualizacao(){
-    //limpar areas que podem estar preenchidas
-    //validar informações usando if's
-    //validado, fazer fatch, para jogar informações para back end
-    //se nescessário, fazer o fatch complexo, mostrando o método e demais infos
-    //devolver o status com json
+    infoAtualizarFat.textContent = ""
+    const id = document.getElementById('buscaIdFat_input').value
+    if(!id){
+        infoAtualizarFat = "Digite um valor de id por favor."
+        return
+    }
+
+    const resposta = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`)
+    const faturamento = await resposta.json()
+
+    const{valor, motivo, data} = faturamento
+
+    const dataFormatada = new Date(data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+    
+    if(resposta.ok){
+        infoAtualizarFat.textContent = faturamento.erro || "Faturamento não encontrado."
+
+    }else{
+        infoAtualizarFat.innerHTML = `
+        Valor: ${valor} <br>
+        Motivo: ${motivo} <br>
+        Data: ${dataFormatada} <br> <br>
+
+        <label class="form-label">Digite o novo valor (opcional):</label>
+        <input id="novoValor" class="form-input form-input-pequeno" type="text">
+
+        <label class="form-label">Digite o novo Motivo (opcional):</label>
+        <input id="novoMotivo" class="form-input form-input-pequeno" type="text">
+
+        <label class="form-label">Selecione uma nova data (opicional): (opcional):</label>
+        <input id="novoNome" class="form-input form-input-pequeno" type="date">
+
+        <button id="atualizarFaturamentoId" class="form-button form-button-pequeno">Salvar Alterações</button>
+
+        <p id="status" class="aviso-sucesso"></p>
+        `
+        const botaoAFaturamento = document.getElementById('atualizarFaturamentoId')
+        botaoAFaturamento.addEventListener("clcik", atualizarFaturamento)
+    
+        async function atualizarFaturamento() {
+            
+        }
+    }
+
 }
 
 async function buscarFaturamentoExclusao(){

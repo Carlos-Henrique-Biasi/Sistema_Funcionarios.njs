@@ -103,7 +103,7 @@ async function cadastrarFaturamento(){
 
     const faturamento = {
         valor : valor,
-        motivo : motivo.trim() !== "" ? motivo : null,,
+        motivo : motivo.trim() !== "" ? motivo : null,
         data : dataF,
         empresa_id: idDaEmpresa
     }

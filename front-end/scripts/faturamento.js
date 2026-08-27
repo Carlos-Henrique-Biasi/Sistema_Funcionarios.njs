@@ -89,39 +89,47 @@ async function cadastrarFaturamento(){
 
     const valor = document.getElementById('cadastrarValorFat').value
     const motivo = document.getElementById('cadastrarMotivoFat'). value
-    if(!motivo){
-        const realMotivo = motivo
-    }
     const dataF = document.getElementById('cadastrarDataFat').value
 
-    if(valor == undefined || Number(isNaN(valor))){
+    if(valor == undefined || isNaN(Number(valor)) || Number(valor) <= 0){
         msgCadastroFat.textContent = "Por favor digite um número valido no campo valor."
         return
     }
 
-    if(dataF = undefined){
+    if(dataF == undefined){
         msgCadastroFat.textContent = "Por favor selecione uma data."
         return
     }
 
     const faturamento = {
         valor : valor,
-        motivo : realMotivo,
-        dataF : dataF,
+        motivo : motivo.trim() !== "" ? motivo : null,,
+        data : dataF,
         empresa_id: idDaEmpresa
     }
 
     try{
-         const resposta = await fetch("http://localhost:3000/faturamentos", {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json"
-        },
-        body: JSON.stringify(faturamento)
+        const resposta = await fetch("http://localhost:3000/faturamentos", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(faturamento)
         })
 
         const respostaJSON = await resposta.json();
-        
+
+        if(resposta.ok){
+            msgCadastroFat.textContent = "Faturamento cadastrado com sucesso!"
+            document.querySelector("#cadastrarValorFat").value = "";
+            document.querySelector("#cadastrarMotivoFat").value = "";
+            document.querySelector("#cadastrarDataFat").value = "";
+
+            await listarFaturamento()
+            await resultadoFaturamento(); 
+        }else{
+            msgCadastroFat.textContent = respostaJSON.erro || "Erro ao cadastrar faturamento.";
+        }
     }catch(erro){
         msgCadastroFat.textContent = "Erro ao conectar com o servidor."
     }

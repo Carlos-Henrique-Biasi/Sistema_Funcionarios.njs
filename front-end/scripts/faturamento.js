@@ -85,11 +85,23 @@ async function buscarFaturamento(){
     }
 }
 async function cadastrarFaturamento(){
-    //limpar areas que podem estar preenchidas
-    //validar informações usando if's
-    //validado, fazer fatch, para jogar informações para back end
-    //se nescessário, fazer o fatch complexo, mostrando o método e demais infos
-    //devolver o status com json
+    msgCadastroFat.textContent = ""
+
+    const valor = document.getElementById('cadastrarValorFat').value
+    let motivo = document.getElementById('cadastrarMotivoFat'). value
+    if(!motivo){
+        motivo = ""
+    }
+    const dataF = document.getElementById('cadastrarDataFat').value
+
+    if(valor == undefined || Number(isNaN(valor))){
+        msgCadastroFat.textContent = "Por favor digite um número valido no campo valor."
+        return
+    }
+
+    if(dataf = undefined){
+        msgCadastroFat.textContent = "Por favor selecione uma data."
+    }
 }
 
 async function buscarFaturamentoAtualizacao(){

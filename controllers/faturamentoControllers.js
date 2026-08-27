@@ -4,7 +4,7 @@ id  -  PK
 empresa_id  -  PF
 valor - int
 motivo - Varchar
-data - YYYY/MM/DD
+dataF - YYYY/MM/DD
 */
 
 const db = require("../data/db")

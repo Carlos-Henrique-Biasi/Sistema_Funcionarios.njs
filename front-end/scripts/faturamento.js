@@ -10,7 +10,7 @@ const botaoBuscarFS = document.getElementById('btnListarFat')
 //=================================== ELEMENTOS DE FATURAMENTO ====================================
 
 //BUSCAR FATURAMENTO
-const fatValor = document.getElementById("fatValor")
+const fatValor = document.getElementById("fatValor") 
 const fatMotivo= document.getElementById("fatMotivo")
 const fatData= document.getElementById("fatData")
 //BUSCAR FATURAMENTO
@@ -49,12 +49,40 @@ botaoBuscarFS.addEventListener("click", listarFaturamentos)
 
 //============================== FUNÇÕES DOS BOTÕES DE FATURAMENTO ================================
 async function buscarFaturamento(){
-    //limpar areas que podem estar preenchidas
-    //validar informações usando if's
-    //validado, fazer fatch, para jogar informações para back end
-    //se nescessário, fazer o fatch complexo, mostrando o método e demais infos
-    //devolver o status com json
-}
+    fatValor.textContent = ""
+    fatMotivo.textContent = ""
+    fatData.textContent = ""
+    
+    const id = document.getElementById('idBuscaFat').value
+
+    if(!id){
+        fatValor.textContent = "Digite um valor de id"
+        fatMotivo.textContent = ""
+        fatData.textContent = ""
+        return
+    }
+
+    try{
+        const resposta = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`)
+        const faturamento = await resposta.json()
+
+        if(!resposta.ok){
+            fatValor.textContent = faturamento.erro || "Faturamento não encontrado."
+        } else {
+            // Desestruturação dos dados retornados pelo backend
+            const { valor, motivo, data } = faturamento
+
+            fatValor.textContent = `Valor: R$ ${valor}`
+            fatMotivo.textContent = `Motivo: ${motivo || 'Não informado'}`
+            
+            // Formatando a data do banco para exibição (ex: DD/MM/AAAA)
+            const dataFormatada = new Date(data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+            fatData.textContent = `Data: ${dataFormatada}`
+        
+        }
+    }catch (erro){
+        fatValor.textContent = "Erro ao conectar com o servidor."
+    }
 
 async function cadastrarFaturamento(){
     //limpar areas que podem estar preenchidas

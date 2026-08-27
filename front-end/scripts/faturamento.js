@@ -167,7 +167,7 @@ async function buscarFaturamentoAtualizacao(){
         <input id="novoMotivo" class="form-input form-input-pequeno" type="text">
 
         <label class="form-label">Selecione uma nova data (opicional): (opcional):</label>
-        <input id="novoNome" class="form-input form-input-pequeno" type="date">
+        <input id="novaData" class="form-input form-input-pequeno" type="date">
 
         <button id="atualizarFaturamentoId" class="form-button form-button-pequeno">Salvar Alterações</button>
 
@@ -177,10 +177,53 @@ async function buscarFaturamentoAtualizacao(){
         botaoAFaturamento.addEventListener("clcik", atualizarFaturamento)
     
         async function atualizarFaturamento() {
-            
+            const NValor = document.getElementById('novoValor').value
+            const NMotivo = document.getElementById('novoMotivo').value.trim()
+            const NData = document.getElementById('novaData').value
+
+            if(NValor === "" && NMotivo === "" && NData === ""){
+                infoAtualizarFat.innerHTML += "<br> Digite pelo menos um campo para ser alterado. <style> #status{color: red;}</style>"
+                return
+            }
+
+            if(NValor !== "" && isNaN(NValor) || NMotivo !== "" && !isNaN(NMotivo)){
+                infoAtualizar.innerHTML = "Por favor, digite um campo válido. <style> #status{color: red;}</style>"
+                return;
+            }
+
+            const dadosAtualizados = {
+                empresa_id: idDaEmpresa
+            }
+
+            if(NValor !== ""){
+                dadosAtualizados.valor = Number(NValor)
+            }
+            if(NMotivo !== ""){
+                dadosAtualizados.motivo = NMotivo
+            }
+            if(NData !== ""){
+                dadosAtualizados.data = NData
+            }
+
+            const respostaUpdate = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`, {
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify(dadosAtualizados)
+            })
+            const respostaJSON = await respostaUpdate.json();
+
+            if(respostaUpdate.ok){
+                infoAtualizarFat.textContent = "Faturamento atualizado com sucesso!"
+                await listarFaturamento()
+                await resultadoFaturamento(); 
+            }else{
+                infoAtualizarFat.textContent = respostaJSON.erro 
+            }
+
         }
     }
-
 }
 
 async function buscarFaturamentoExclusao(){

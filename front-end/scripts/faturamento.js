@@ -83,7 +83,7 @@ async function buscarFaturamento(){
     }catch (erro){
         fatValor.textContent = "Erro ao conectar com o servidor."
     }
-
+}
 async function cadastrarFaturamento(){
     //limpar areas que podem estar preenchidas
     //validar informações usando if's

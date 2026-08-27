@@ -88,9 +88,9 @@ async function cadastrarFaturamento(){
     msgCadastroFat.textContent = ""
 
     const valor = document.getElementById('cadastrarValorFat').value
-    let motivo = document.getElementById('cadastrarMotivoFat'). value
+    const motivo = document.getElementById('cadastrarMotivoFat'). value
     if(!motivo){
-        motivo = ""
+        const realMotivo = motivo
     }
     const dataF = document.getElementById('cadastrarDataFat').value
 
@@ -99,9 +99,33 @@ async function cadastrarFaturamento(){
         return
     }
 
-    if(dataf = undefined){
+    if(dataF = undefined){
         msgCadastroFat.textContent = "Por favor selecione uma data."
+        return
     }
+
+    const faturamento = {
+        valor : valor,
+        motivo : realMotivo,
+        dataF : dataF,
+        empresa_id: idDaEmpresa
+    }
+
+    try{
+         const resposta = await fetch("http://localhost:3000/faturamentos", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(faturamento)
+        })
+
+        const respostaJSON = await resposta.json();
+        
+    }catch(erro){
+        msgCadastroFat.textContent = "Erro ao conectar com o servidor."
+    }
+   
 }
 
 async function buscarFaturamentoAtualizacao(){

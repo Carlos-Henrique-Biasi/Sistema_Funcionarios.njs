@@ -119,15 +119,13 @@ async function cadastrarFaturamento(){
 
         const respostaJSON = await resposta.json();
 
-        console.log(resposta)
-
         if(resposta.ok){
             msgCadastroFat.textContent = "Faturamento cadastrado com sucesso!"
             document.querySelector("#cadastrarValorFat").value = "";
             document.querySelector("#cadastrarMotivoFat").value = "";
             document.querySelector("#cadastrarDataFat").value = "";
 
-            await listarFaturamento()
+            await listarFaturamentos()
             await resultadoFaturamento(); 
         }else{
             msgCadastroFat.textContent = respostaJSON.erro || "Erro ao cadastrar faturamento."

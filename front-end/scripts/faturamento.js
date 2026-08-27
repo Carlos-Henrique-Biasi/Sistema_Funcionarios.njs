@@ -140,15 +140,13 @@ async function buscarFaturamentoAtualizacao(){
     infoAtualizarFat.textContent = ""
     const id = document.getElementById('buscaIdFat_input').value
     if(!id){
-        infoAtualizarFat = "Digite um valor de id por favor."
+        infoAtualizarFat.textContent = "Digite um valor de id por favor."
         return
     }
 
     try{
         const resposta = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`)
         const faturamento = await resposta.json()
-
-        const dataFormatada = new Date(data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
         
         if(!resposta.ok){
             infoAtualizarFat.textContent = faturamento.erro || "Faturamento não encontrado."
@@ -188,7 +186,7 @@ async function buscarFaturamentoAtualizacao(){
                 }
 
                 if(NValor !== "" && isNaN(NValor) || NMotivo !== "" && !isNaN(NMotivo)){
-                    infoAtualizar.innerHTML = "Por favor, digite um campo válido. <style> #status{color: red;}</style>"
+                    infoAtualizarFat.innerHTML = "Por favor, digite um campo válido. <style> #status{color: red;}</style>"
                     return;
                 }
 
@@ -215,7 +213,7 @@ async function buscarFaturamentoAtualizacao(){
 
                 if(respostaUpdate.ok){
                     infoAtualizarFat.textContent = "Faturamento atualizado com sucesso!"
-                    await listarFaturamento()
+                    await listarFaturamentos()
                     await resultadoFaturamento(); 
                 }else{
                     infoAtualizarFat.textContent = respostaJSON.erro 

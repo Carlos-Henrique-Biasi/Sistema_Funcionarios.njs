@@ -125,6 +125,7 @@ async function cadastrarFaturamento(){
             document.querySelector("#cadastrarMotivoFat").value = "";
             document.querySelector("#cadastrarDataFat").value = "";
 
+            await listarFaturamentos()
             await resultadoFaturamento(); 
         }else{
             msgCadastroFat.textContent = respostaJSON.erro || "Erro ao cadastrar faturamento."

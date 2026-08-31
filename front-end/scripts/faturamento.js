@@ -235,11 +235,18 @@ async function buscarFaturamentoExclusao(){
 }
 
 async function resultadoFaturamento(){
-    //limpar areas que podem estar preenchidas
-    //validar informações usando if's
-    //validado, fazer fatch, para jogar informações para back end
-    //se nescessário, fazer o fatch complexo, mostrando o método e demais infos
-    //devolver o status com json
+    const resposta = await fetch(`http://localhost:3000/faturamentos/total/${idDaEmpresa}`);
+    const dadosFat = await resposta.json();
+
+    if (dadosFat.qtd > 0) {
+        qntregistros.textContent = dadosFat.qtd;
+       // Formata para 2 casas decimais e troca o ponto por vírgula
+        const valorFormatado = Number(dadosFat.total).toFixed(2).replace('.', ',');
+        valorTotal.textContent = `R$ ${valorFormatado}`;
+    } else {
+        qntregistros.textContent = "0";
+        valorTotal.textContent = "R$ 0.00";
+    }
 }
 
 async function listarFaturamentos(){

@@ -13,10 +13,12 @@ app.use(express.static(path.join(__dirname, 'front-end')))
 
 const empresasRoutes = require("./routes/empresasRoutes")
 const funcionariosRoutes = require("./routes/funcionariosRoutes")
+const faturamentoRoutes = require("./routes/faturamentoRoutes") 
+
 
 app.use(funcionariosRoutes)
 app.use(empresasRoutes)
-
+app.use(faturamentoRoutes)
 
 app.listen(3000, () => {
     console.log("Servidor rodando...")

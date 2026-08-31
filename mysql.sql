@@ -22,3 +22,33 @@ CREATE TABLE funcionarios (
     -- Chave estrangeira
     FOREIGN KEY (empresa_id) REFERENCES empresas(id)
 );
+
+CREATE TABLE faturamentos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    valor DECIMAL(15,2) NOT NULL,
+    motivo VARCHAR(200),
+    dataF DATE NOT NULL,
+    empresa_id INT NOT NULL,
+
+    -- Chave estrangeira
+    FOREIGN KEY (empresa_id) REFERENCES empresas(id)
+);
+
+CREATE TABLE despesas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    valor DECIMAL(15,2) NOT NULL,
+    motivo VARCHAR(250),
+    dataD DATE NOT NULL,
+    empresa_id INT NOT NULL,
+
+    --chave estrangeira 
+    FOREIGN KEY(empresa_id) REFERENCES empresas(id)
+);
+
+CREATE TABLE receita(
+    empresa_id INT PRIMARY KEY,
+    valor DECIMAL(15,2),
+
+    --chave estrangeira
+    FOREIGN KEY(empresa_id) REFERENCES empresas(id)
+);

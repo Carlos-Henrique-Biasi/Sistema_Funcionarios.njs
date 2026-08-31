@@ -228,11 +228,49 @@ async function buscarFaturamentoAtualizacao(){
 }
 
 async function buscarFaturamentoExclusao(){
-    //limpar areas que podem estar preenchidas
-    //validar informações usando if's
-    //validado, fazer fatch, para jogar informações para back end
-    //se nescessário, fazer o fatch complexo, mostrando o método e demais infos
-    //devolver o status com json
+    divExcluirFat.textContent = ""
+
+    const id = document.getElementById('verificarExcluirFat').value
+    if(!id){
+        divExcluirFat.textContent = "Digite um valor no campo de ID."
+    }
+
+    const resposta = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`)
+    const faturamento = await resposta.json()
+    const dataFormatada = new Date(faturamento.dataF).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) // formatar data
+
+    if(!resposta.ok){
+        divExcluirFat.textContent = faturamento.erro || "Faturamento não encontrado."
+    }else{
+
+        divExcluirFat.innerHTML = `
+            Valor: ${faturamento.valor} <br>
+            Motivo: ${faturamento.motivo} <br>
+            Data: ${dataFormatada}
+            <br><br>
+
+            <button id="excluirFat" class="form-button-danger">Confirmar Exclusão</button>
+        `
+
+        const botaoExcluirFat = document.getElementById('excluirFat')
+        botaoExcluirFat.addEventListener("click", excluirFat)
+
+        async function excluirFat() {
+            const respostaDelete = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`,{
+                method: "DELETE"
+            })
+            const respostaJSON = await respostaDelete.json()
+
+            if(respostaDelete.ok){
+                divExcluirFat.textContent = "Faturamento excluido com sucesso."
+                await listarFaturamentos()
+                await resultadoFaturamento()
+            }else{
+                divExcluirFat.textContent = respostaJSON.erro
+            }
+            
+        }
+    }
 }
 
 async function resultadoFaturamento(){

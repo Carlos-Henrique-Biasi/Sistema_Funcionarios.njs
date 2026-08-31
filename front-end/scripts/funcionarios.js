@@ -63,7 +63,7 @@ async function gerarLista() {
     const resposta = await fetch(`http://localhost:3000/funcionarios/empresa/${idDaEmpresa}`)
     const listaJSON = await resposta.json()
 
-    lista.textContent = ""
+    lista.textContent = "" 
     
     if (listaJSON.length === 0) {
         lista.textContent = "Nenhum funcionário cadastrado para esta empresa."

@@ -243,11 +243,22 @@ async function resultadoFaturamento(){
 }
 
 async function listarFaturamentos(){
-    //limpar areas que podem estar preenchidas
-    //validar informações usando if's
-    //validado, fazer fatch, para jogar informações para back end
-    //se nescessário, fazer o fatch complexo, mostrando o método e demais infos
-    //devolver o status com json
+    const resposta = await fetch(`http://localhost:3000/faturamentos/empresa/${idDaEmpresa}`)
+    const listaJSON = await resposta.json()
+
+    listaFaturamento.textContent = ""
+
+    if (listaJSON.length === 0) {
+        listaFaturamento.textContent = "Nenhum faturamento cadastrado para esta empresa."
+        return;
+    }
+
+     listaJSON.forEach(faturamento => {
+        const dataFormatada = new Date(faturamento.dataF).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) // formatar data
+        const p = document.createElement("p")
+        p.textContent = `ID: ${faturamento.id} | Valor: R$${faturamento.valor} | Motivo: ${faturamento.motivo || 'Não especificado.' } | Data: ${dataFormatada}`
+        listaFaturamento.appendChild(p)
+    });
 }
 
 //============================== FUNÇÕES DOS BOTÕES DE FATURAMENTO ================================

@@ -227,7 +227,7 @@ async function buscarFaturamentoAtualizacao(){
     }
 }
 
-async function buscarFaturamentoExclusao(){
+async function buscarFaturamentoExclusao(){ 
     divExcluirFat.textContent = ""
 
     const id = document.getElementById('verificarExcluirFat').value

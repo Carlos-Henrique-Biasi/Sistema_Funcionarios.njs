@@ -151,12 +151,12 @@ async function buscarFaturamentoAtualizacao(){
         if(!resposta.ok){
             infoAtualizarFat.textContent = faturamento.erro || "Faturamento não encontrado."
         }else{
-            const{valor, motivo, data} = faturamento
-            const dataFormatada = new Date(data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+            const{valor, motivo, dataF} = faturamento
+            const dataFormatada = new Date(dataF).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
 
             infoAtualizarFat.innerHTML = `
             Valor: ${valor} <br>
-            Motivo: ${motivo} <br>
+            Motivo: ${motivo || 'Motivo não informado'} <br>
             Data: ${dataFormatada} <br> <br>
 
             <label class="form-label">Digite o novo valor (opcional):</label>
@@ -181,7 +181,7 @@ async function buscarFaturamentoAtualizacao(){
                 const NData = document.getElementById('novaData').value
 
                 if(NValor === "" && NMotivo === "" && NData === ""){
-                    infoAtualizarFat.innerHTML += "<br> Digite pelo menos um campo para ser alterado. <style> #status{color: red;}</style>"
+                    infoAtualizarFat.innerHTML = "<br> Digite pelo menos um campo para ser alterado. <style> #status{color: red;}</style>"
                     return
                 }
 

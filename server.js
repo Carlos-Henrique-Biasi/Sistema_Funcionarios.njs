@@ -9,7 +9,7 @@ app.use(express.json())
 
 // A MÁGICA ACONTECE AQUI:
 // Dizemos ao Express para expor a pasta "front-end" publicamente
-app.use(express.static(path.join(__dirname, 'front-end')));
+app.use(express.static(path.join(__dirname, 'front-end'), { index: false }));
 app.get('/', (req, res) => { //garante abrir apresentação primeiro.
     res.sendFile(path.join(__dirname, 'front-end', 'apresentacao.html'));
 });

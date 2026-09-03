@@ -47,7 +47,7 @@ async function buscarFuncionario(){
         return;
     }
 
-    const resposta = await fetch(`http://localhost:3000/funcionarios/${id}/empresa/${idDaEmpresa}`)
+    const resposta = await fetch(`/funcionarios/${id}/empresa/${idDaEmpresa}`)
     const funcionario = await resposta.json()
 
     if(!resposta.ok){
@@ -60,7 +60,7 @@ async function buscarFuncionario(){
 }
 
 async function gerarLista() {
-    const resposta = await fetch(`http://localhost:3000/funcionarios/empresa/${idDaEmpresa}`)
+    const resposta = await fetch(`/funcionarios/empresa/${idDaEmpresa}`)
     const listaJSON = await resposta.json()
 
     lista.textContent = "" 
@@ -79,7 +79,7 @@ async function gerarLista() {
 
 // NOVA FUNÇÃO: Calcula a folha e injeta nos novos elementos HTML
 async function calcularFolha() {
-    const resposta = await fetch(`http://localhost:3000/funcionarios/folha/${idDaEmpresa}`);
+    const resposta = await fetch(`/funcionarios/folha/${idDaEmpresa}`);
     const dadosApi = await resposta.json();
 
     if (dadosApi.qtd > 0) {
@@ -125,7 +125,7 @@ async function cadastrarFuncionario() {
         empresa_id: idDaEmpresa 
     }
 
-    const resposta = await fetch("http://localhost:3000/funcionarios", {
+    const resposta = await fetch("/funcionarios", {
         method: "POST",
         headers: {
             "Content-type": "application/json"
@@ -157,7 +157,7 @@ async function buscarId() {
         return;
     }
 
-    const resposta = await fetch(`http://localhost:3000/funcionarios/${id}/empresa/${idDaEmpresa}`)
+    const resposta = await fetch(`/funcionarios/${id}/empresa/${idDaEmpresa}`)
     const funcionario = await resposta.json()
 
     if(!resposta.ok){
@@ -209,7 +209,7 @@ async function buscarId() {
                 dadosAtualizados.salario = Number(NSalario)
             }
 
-            const respostaUpdate = await fetch(`http://localhost:3000/funcionarios/${id}/empresa/${idDaEmpresa}`, {
+            const respostaUpdate = await fetch(`/funcionarios/${id}/empresa/${idDaEmpresa}`, {
                 method: "PUT",
                 headers: {
                     "Content-type": "application/json"
@@ -242,7 +242,7 @@ async function verificar() {
         return;
     }
 
-    const resposta = await fetch(`http://localhost:3000/funcionarios/${id}/empresa/${idDaEmpresa}`)
+    const resposta = await fetch(`/funcionarios/${id}/empresa/${idDaEmpresa}`)
     const funcionario = await resposta.json()
     
     if(!resposta.ok){
@@ -256,7 +256,7 @@ async function verificar() {
         botaoE.addEventListener("click", excluir)
 
         async function excluir() {
-            const respostaDelete = await fetch(`http://localhost:3000/funcionarios/${id}/empresa/${idDaEmpresa}`, {
+            const respostaDelete = await fetch(`/funcionarios/${id}/empresa/${idDaEmpresa}`, {
                 method: "DELETE"
             })
             const respostaJSON = await respostaDelete.json() 

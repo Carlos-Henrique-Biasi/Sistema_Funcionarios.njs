@@ -9,7 +9,10 @@ app.use(express.json())
 
 // A MÁGICA ACONTECE AQUI:
 // Dizemos ao Express para expor a pasta "front-end" publicamente
-app.use(express.static(path.join(__dirname, 'front-end')))
+app.use(express.static(path.join(__dirname, 'front-end')));
+app.get('/', (req, res) => { //garante abrir apresentação primeiro.
+    res.sendFile(path.join(__dirname, 'front-end', 'apresentacao.html'));
+});
 
 const empresasRoutes = require("./routes/empresasRoutes")
 const funcionariosRoutes = require("./routes/funcionariosRoutes")
@@ -20,6 +23,7 @@ app.use(funcionariosRoutes)
 app.use(empresasRoutes)
 app.use(faturamentoRoutes)
 
-app.listen(3000, () => {
-    console.log("Servidor rodando...")
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});

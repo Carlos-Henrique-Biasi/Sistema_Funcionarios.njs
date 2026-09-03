@@ -21,7 +21,7 @@ formLogin.addEventListener("submit", async (event) => {
 
     try {
         // 6. Fazemos o pedido (fetch) para a nossa API no backend (igual o Thunder Client faz).
-        const resposta = await fetch("http://localhost:3000/login", {
+        const resposta = await fetch("/login", {
             method: "POST", // Login é POST porque estamos enviando dados.
             headers: {
                 "Content-Type": "application/json" // Avisamos que o pacote está no formato JSON.

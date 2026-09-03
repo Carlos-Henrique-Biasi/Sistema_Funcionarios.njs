@@ -63,7 +63,7 @@ async function buscarFaturamento(){
     }
 
     try{
-        const resposta = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`)
+        const resposta = await fetch(`/faturamentos/${id}/empresa/${idDaEmpresa}`)
         const faturamento = await resposta.json()
 
         if(!resposta.ok){
@@ -109,7 +109,7 @@ async function cadastrarFaturamento(){
     }
 
     try{
-        const resposta = await fetch("http://localhost:3000/faturamentos", {
+        const resposta = await fetch("/faturamentos", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -145,7 +145,7 @@ async function buscarFaturamentoAtualizacao(){
     }
 
     try{
-        const resposta = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`)
+        const resposta = await fetch(`/faturamentos/${id}/empresa/${idDaEmpresa}`)
         const faturamento = await resposta.json()
         
         if(!resposta.ok){
@@ -202,7 +202,7 @@ async function buscarFaturamentoAtualizacao(){
                     dadosAtualizados.data = NData
                 }
 
-                const respostaUpdate = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`, {
+                const respostaUpdate = await fetch(`/faturamentos/${id}/empresa/${idDaEmpresa}`, {
                     method: "PUT",
                     headers: {
                         "Content-type": "application/json"
@@ -235,7 +235,7 @@ async function buscarFaturamentoExclusao(){
         divExcluirFat.textContent = "Digite um valor no campo de ID."
     }
 
-    const resposta = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`)
+    const resposta = await fetch(`/faturamentos/${id}/empresa/${idDaEmpresa}`)
     const faturamento = await resposta.json()
     const dataFormatada = new Date(faturamento.dataF).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) // formatar data
 
@@ -256,7 +256,7 @@ async function buscarFaturamentoExclusao(){
         botaoExcluirFat.addEventListener("click", excluirFat)
 
         async function excluirFat() {
-            const respostaDelete = await fetch(`http://localhost:3000/faturamentos/${id}/empresa/${idDaEmpresa}`,{
+            const respostaDelete = await fetch(`/faturamentos/${id}/empresa/${idDaEmpresa}`,{
                 method: "DELETE"
             })
             const respostaJSON = await respostaDelete.json()
@@ -274,7 +274,7 @@ async function buscarFaturamentoExclusao(){
 }
 
 async function resultadoFaturamento(){
-    const resposta = await fetch(`http://localhost:3000/faturamentos/total/${idDaEmpresa}`);
+    const resposta = await fetch(`/faturamentos/total/${idDaEmpresa}`);
     const dadosFat = await resposta.json();
 
     if (dadosFat.qtd > 0) {
@@ -289,7 +289,7 @@ async function resultadoFaturamento(){
 }
 
 async function listarFaturamentos(){
-    const resposta = await fetch(`http://localhost:3000/faturamentos/empresa/${idDaEmpresa}`)
+    const resposta = await fetch(`/faturamentos/empresa/${idDaEmpresa}`)
     const listaJSON = await resposta.json()
 
     listaFaturamento.textContent = ""

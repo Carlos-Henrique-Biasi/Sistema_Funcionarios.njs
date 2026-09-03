@@ -24,7 +24,7 @@ formCadastro.addEventListener("submit", async (event) => {
     try {
         // 6. Fazemos o POST para a rota de criar empresa
         // Substitua a URL abaixo se a sua rota no Node.js for diferente de /empresas
-        const resposta = await fetch("http://localhost:3000/empresas", {
+        const resposta = await fetch("/empresas", {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json" 

@@ -1,5 +1,8 @@
 // 1. Agarramos o formulário pelo ID que colocamos no HTML
 const formCadastro = document.getElementById("form-cadastro");
+const respostaCadastro = document.getElementById('resposttaCadastro')
+// Criamos uma função auxiliar que faz o JavaScript "dormir" (esperar)
+const esperar = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 // 2. Adicionamos o "ouvinte" para o clique do botão de cadastrar
 formCadastro.addEventListener("submit", async (event) => {
@@ -36,8 +39,10 @@ formCadastro.addEventListener("submit", async (event) => {
 
         // 7. Se o servidor responder com sucesso (Status 201 Created, por exemplo)
         if (resposta.ok) {
-            
-            alert("Empresa cadastrada com sucesso! Faça login para continuar.");
+            respostaCadastro.textContent = "Cadastro Realizado com sucesso!"
+            respostaCadastro.style.color = "green"
+            // Esperamos 5 segundos (5000 milissegundos)
+            await esperar(5000);
             
             // 8. Redireciona a empresa para a tela de login
             window.location.href = "index.html"; 

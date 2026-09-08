@@ -1,5 +1,8 @@
 // 1. Primeiro, nós "agarramos" o formulário do HTML usando o ID que criamos lá.
 const formLogin = document.getElementById("form-login");
+const respostaLogin = document.getElementById('respostaLogin')
+// Criamos uma função auxiliar que faz o JavaScript "dormir" (esperar)
+const esperar = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 // 2. Adicionamos um "ouvinte de eventos" (addEventListener).
 // Ele fica esperando o usuário clicar no botão de "submit" (Entrar no Sistema).
@@ -47,15 +50,18 @@ formLogin.addEventListener("submit", async (event) => {
             //Guardamos também o NOME na mochila!
             localStorage.setItem("nome_empresa_logada", dadosResposta.nome_empresa);
             
-            // Avisamos que deu certo.
-            alert("Login feito com sucesso!");
+            respostaLogin.textContent = "Login Realizado com sucesso!"
+            respostaLogin.style.color = "green"
+            // Esperamos 5 segundos (5000 milissegundos)
+            await esperar(5000);
 
             // 9. Mudamos de página! Redirecionamos o usuário automaticamente para o painel.
             window.location.href = "painel.html"; 
 
         } else {
             // Se a senha estiver errada ou o e-mail não existir, mostramos o erro do backend.
-            alert("Erro ao logar: " + dadosResposta.erro);
+            respostaLogin.textContent = "E-mail ou senha incorretos."
+            respostaLogin.style.color = "red"
         }
 
     } catch (erro) {

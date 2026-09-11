@@ -25,35 +25,28 @@ formCadastro.addEventListener("submit", async (event) => {
     };
 
     try {
-        // 6. Fazemos o POST para a rota de criar empresa
-        // Substitua a URL abaixo se a sua rota no Node.js for diferente de /empresas
-        const resposta = await fetch("/empresas", {
-            method: "POST", 
-            headers: {
-                "Content-Type": "application/json" 
-            },
-            body: JSON.stringify(dadosCadastro) 
-        });
+    const resposta = await fetch("/empresas", {
+        method: "POST", 
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dadosCadastro) 
+    });
 
+    // Verificamos o status ANTES de tentar converter para JSON
+    if (resposta.ok) {
+        respostaCadastro.textContent = "Cadastro Realizado com sucesso!";
+        respostaCadastro.style.color = "green";
+        
+        await esperar(5000);
+        window.location.href = "index.html"; 
+    } else {
+        // Só tenta ler o JSON se deu erro (assumindo que o erro vem em JSON)
         const dadosResposta = await resposta.json();
-
-        // 7. Se o servidor responder com sucesso (Status 201 Created, por exemplo)
-        if (resposta.ok) {
-            respostaCadastro.textContent = "Cadastro Realizado com sucesso!"
-            respostaCadastro.style.color = "green"
-            // Esperamos 5 segundos (5000 milissegundos)
-            await esperar(5000);
-            
-            // 8. Redireciona a empresa para a tela de login
-            window.location.href = "index.html"; 
-
-        } else {
-            // Se o e-mail já existir no banco, por exemplo, mostra o erro
-            alert("Erro ao cadastrar: " + dadosResposta.erro);
-        }
-
-    } catch (erro) {
-        console.log("Erro na comunicação:", erro);
-        alert("Não foi possível conectar com o servidor.");
+        alert("Erro ao cadastrar: " + dadosResposta.erro);
     }
+
+} catch (erro) {
+    // Mudei para console.error para você ver no painel do navegador qual foi o erro exato
+    console.error("Erro exato na comunicação:", erro); 
+    alert("Não foi possível conectar com o servidor.");
+}
 });

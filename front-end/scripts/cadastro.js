@@ -1,6 +1,6 @@
 // 1. Agarramos o formulário pelo ID que colocamos no HTML
 const formCadastro = document.getElementById("form-cadastro");
-const respostaCadastro = document.getElementById('resposttaCadastro')
+const respostaCadastro = document.getElementById('respostaCadastro')
 // Criamos uma função auxiliar que faz o JavaScript "dormir" (esperar)
 const esperar = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 

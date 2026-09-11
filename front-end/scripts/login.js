@@ -53,7 +53,7 @@ formLogin.addEventListener("submit", async (event) => {
             respostaLogin.textContent = "Login Realizado com sucesso!"
             respostaLogin.style.color = "green"
             // Esperamos 5 segundos (5000 milissegundos)
-            await esperar(5000);
+            await esperar(2000);
 
             // 9. Mudamos de página! Redirecionamos o usuário automaticamente para o painel.
             window.location.href = "painel.html"; 

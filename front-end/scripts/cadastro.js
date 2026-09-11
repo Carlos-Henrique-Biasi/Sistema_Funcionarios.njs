@@ -36,7 +36,7 @@ formCadastro.addEventListener("submit", async (event) => {
         respostaCadastro.textContent = "Cadastro Realizado com sucesso!";
         respostaCadastro.style.color = "green";
         
-        await esperar(5000);
+        await esperar(2000);
         window.location.href = "index.html"; 
     } else {
         // Só tenta ler o JSON se deu erro (assumindo que o erro vem em JSON)
